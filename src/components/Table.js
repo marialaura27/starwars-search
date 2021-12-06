@@ -3,6 +3,7 @@ import MyContext from '../context/MyContext';
 
 function Table() {
   const { data } = useContext(MyContext);
+
   return (
     <div>
       <table>
@@ -24,7 +25,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.map(({
+          {data ? data.map(({
             name,
             rotation_period: rotationPeriod,
             orbital_period: orbitalPeriod,
@@ -56,7 +57,7 @@ function Table() {
               <td>{edited}</td>
               <td>{url}</td>
             </tr>
-          ))}
+          )) : null}
         </tbody>
       </table>
     </div>

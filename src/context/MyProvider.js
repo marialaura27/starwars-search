@@ -4,6 +4,17 @@ import MyContext from './MyContext';
 
 function MyProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
+  const filtered = planets ? planets.filter(
+    (planet) => planet.name.toLowerCase().includes(filterByName.toLowerCase()),
+  ) : null;
+
+  const handleChange = ({ target }) => {
+    setFilterByName({
+      name: target.value,
+    });
+  };
+
   useEffect(() => {
     async function fetchResults() {
       const { results } = await fetch('https://swapi-trybe.herokuapp.com/api/planets/').then((response) => response.json());
@@ -14,7 +25,9 @@ function MyProvider({ children }) {
   });
 
   return (
-    <MyContext.Provider value={ { data: planets } }>
+    <MyContext.Provider
+      value={ { handleChange, data: filterByName.name ? filtered : planets } }
+    >
       { children }
     </MyContext.Provider>
   );
