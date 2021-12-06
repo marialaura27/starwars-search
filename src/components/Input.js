@@ -11,7 +11,7 @@ function Input() {
             name="name"
             id="name"
             onChange={ handleChange }
-            data-testid='name-filter'
+            data-testid="name-filter"
           />
         </label>
       </form>
