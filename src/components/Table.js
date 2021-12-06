@@ -26,13 +26,13 @@ function Table() {
         <tbody>
           {data.map(({
             name,
-            rotationPeriod = rotation_period,
-            orbitalPeriod = orbital_period,
+            rotation_period: rotationPeriod,
+            orbital_period: orbitalPeriod,
             diameter,
             climate,
             gravity,
             terrain,
-            surfaceWater = surface_water,
+            surface_water: surfaceWater,
             population,
             residents,
             films,
