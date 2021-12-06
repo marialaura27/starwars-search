@@ -6,9 +6,9 @@ function MyProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
   const filtered = planets ? planets.filter(
-    (planet) => planet.name.toLowerCase().includes(filterByName.toLowerCase()),
+    (planet) => planet.name.toLowerCase().includes(filterByName.name.toLocaleLowerCase()),
   ) : null;
-
+  console.log(filtered);
   const handleChange = ({ target }) => {
     setFilterByName({
       name: target.value,
@@ -22,7 +22,7 @@ function MyProvider({ children }) {
     }
 
     fetchResults();
-  });
+  }, []);
 
   return (
     <MyContext.Provider
