@@ -55,7 +55,7 @@ function FiltroNumerico() {
         data-testid="button-filter"
         onClick={ filtrar }
       >
-        FILTRAR
+        filtrar
       </button>
     </div>
   );
