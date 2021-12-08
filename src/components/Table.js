@@ -2,7 +2,25 @@ import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 
 function Table() {
-  const { data } = useContext(MyContext);
+  const { data, filterByNumericValues } = useContext(MyContext);
+
+  const filtrarPorValor = () => {
+    let myFilter = data;
+    filterByNumericValues.forEach((filtro) => {
+      myFilter = myFilter.filter((item) => {
+        if (filtro.comparison === 'maior que') {
+          return Number(item[filtro.column]) > Number(filtro.value);
+        } if (filtro.comparison === 'menor que') {
+          return Number(item[filtro.column]) < Number(filtro.value);
+        } if (filtro.comparison === 'igual a') {
+          return Number(item[filtro.column]) === Number(filtro.value);
+        }
+        return item;
+      });
+    });
+    return myFilter;
+  };
+  const results = filtrarPorValor();
 
   return (
     <div>
@@ -25,7 +43,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data ? data.map(({
+          {results ? results.map(({
             name,
             rotation_period: rotationPeriod,
             orbital_period: orbitalPeriod,

@@ -5,14 +5,36 @@ import MyContext from './MyContext';
 function MyProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
-  const filtered = planets ? planets.filter(
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+  const [temporario, setTemporario] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0 });
+  const filteredByName = planets ? planets.filter(
     (planet) => planet.name.toLowerCase().includes(filterByName.name.toLocaleLowerCase()),
   ) : null;
-  console.log(filtered);
+  const listaPlanetas = filterByName.name ? filteredByName : planets;
+
   const handleChange = ({ target }) => {
     setFilterByName({
       name: target.value,
     });
+  };
+
+  const handleFilter = ({ target }) => {
+    setTemporario(
+      {
+        ...temporario,
+        [target.name]: target.value,
+      },
+    );
+  };
+
+  const filtrar = () => {
+    setFilterByNumericValues([
+      ...filterByNumericValues,
+      temporario,
+    ]);
   };
 
   useEffect(() => {
@@ -26,7 +48,13 @@ function MyProvider({ children }) {
 
   return (
     <MyContext.Provider
-      value={ { handleChange, data: filterByName.name ? filtered : planets } }
+      value={ {
+        handleChange,
+        handleFilter,
+        filtrar,
+        data: listaPlanetas,
+        filterByNumericValues,
+      } }
     >
       { children }
     </MyContext.Provider>
