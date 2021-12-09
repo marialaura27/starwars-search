@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 
 function FiltroNumerico() {
-  const { handleFilter, filtrar } = useContext(MyContext);
+  const { handleFilter, filtrar, filterByNumericValues } = useContext(MyContext);
   const opcoesColuna = [
     'population',
     'orbital_period',
@@ -10,6 +10,8 @@ function FiltroNumerico() {
     'rotation_period',
     'surface_water',
   ];
+
+  const colunasFiltro = filterByNumericValues.map((filtro) => filtro.column);
   return (
     <div>
       <label htmlFor="filtro-coluna">
@@ -19,7 +21,7 @@ function FiltroNumerico() {
           id="filtro-coluna"
           onChange={ handleFilter }
         >
-          {opcoesColuna.map(
+          {opcoesColuna.filter((item) => !colunasFiltro.includes(item)).map(
             (item) => (
               <option key={ item } value={ item }>
                 {item}
@@ -45,7 +47,7 @@ function FiltroNumerico() {
           type="number"
           data-testid="value-filter"
           name="value"
-          value="0"
+          defaultValue="0"
           id="input-valor"
           onChange={ handleFilter }
         />
